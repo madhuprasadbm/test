@@ -13,7 +13,9 @@ node{
    }
    
    stage('start tomcat'){
+      sshagent(['tomcat']) {
       sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.32.102 "sudo systemctl start tomcat"'
+   }
    }
    stage('email notification'){
       mail bcc: '', body: '''HI bro
