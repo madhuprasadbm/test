@@ -8,12 +8,12 @@ node{
    }
    stage('building package'){
       sshagent(['tomcat']) {
-    sh 'scp -o StrictHostKeyChecking=no target/*.war ec2-user@172.31.32.102:/opt/tomcat/webapps'  
+    sh 'scp -o StrictHostKeyChecking=no target/*.war ec2-user@172.31.32.102:/opt/tomcat/webapps'
 }
    }
    
    stage('start tomcat'){
-      sh 'sudo systemctl start tomcat'
+      sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.32.102 "sudo systemctl start tomcat"'
    }
    stage('email notification'){
       mail bcc: '', body: '''HI bro
